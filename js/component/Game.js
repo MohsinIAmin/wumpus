@@ -6,7 +6,7 @@ class Game extends React.Component {
     render() {
         return (
              <div>
-                <h1>Mohsin</h1>
+                <h1>Fahad</h1>
              </div>
         );
     }
