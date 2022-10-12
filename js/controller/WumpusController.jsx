@@ -1,5 +1,5 @@
 
-const WumpusManager = {
+const WumpusController = {
   constants: {
     clear: 0,
     pit: 1,
@@ -9,15 +9,8 @@ const WumpusManager = {
     stench: 5,
     glitter: 6,
     question: 7,
-    arrow: 8,
     pittile: 9,
     crossbones: 10,
-    arrowState: {
-      none: 0,
-      armed: 1,
-      fired: 2,
-      kill: 3,
-    },
   },
 
   generate: (width, height) => {
@@ -51,39 +44,37 @@ const WumpusManager = {
       throw new Error(msg)
     }
 
-    for (let y=0; y<height; y++) {
+    for (let y = 0; y < height; y++) {
       const cols = [];
 
-      for (let x=0; x<width; x++) {
+      for (let x = 0; x < width; x++) {
         if (x === wumpus.x && y === wumpus.y) {
           // Wumpus room.
-          cols[x] = [ WumpusManager.constants.wumpus ];
+          cols[x] = [WumpusController.constants.wumpus];
         }
         else if (x === gold.x && y === gold.y) {
           // Gold room.
-          cols[x] = [ WumpusManager.constants.gold ];
+          cols[x] = [WumpusController.constants.gold];
         }
         else if (x !== 0 && y !== height - 1) {
           // Pit room (not on the player starting location).
           const isPit = Math.random() <= 0.2;
-          cols[x] = [ isPit ? WumpusManager.constants.pit : WumpusManager.constants.clear ];
+          cols[x] = [isPit ? WumpusController.constants.pit : WumpusController.constants.clear];
           isPit && pits.push({ x, y });
         }
         else {
-          // Empty room.
-          cols[x] = [ WumpusManager.constants.clear ];
+          cols[x] = [WumpusController.constants.clear];
         }
       }
 
       rows[y] = cols;
     }
 
-    // Assign hints.
     pits.forEach(pit => {
-      WumpusManager.addHint(pit, WumpusManager.constants.breeze, rows, width, height);
+      WumpusController.addHint(pit, WumpusController.constants.breeze, rows, width, height);
     });
-    WumpusManager.addHint(wumpus, WumpusManager.constants.stench, rows, width, height);
-    WumpusManager.addHint(gold, WumpusManager.constants.glitter, rows, width, height);
+    WumpusController.addHint(wumpus, WumpusController.constants.stench, rows, width, height);
+    WumpusController.addHint(gold, WumpusController.constants.glitter, rows, width, height);
 
     return { map: rows, gold, wumpus };
   },
@@ -109,28 +100,25 @@ const WumpusManager = {
     let icon = null;
 
     switch (goal) {
-      case WumpusManager.constants.pit:
+      case WumpusController.constants.pit:
         icon = 'fas fa-skull-crossbones';
         break;
-      case WumpusManager.constants.pittile:
+      case WumpusController.constants.pittile:
         icon = 'fas fa-square';
         break;
-      case WumpusManager.constants.wumpus:
+      case WumpusController.constants.wumpus:
         icon = 'fab fa-optin-monster';
         break;
-      case WumpusManager.constants.gold:
+      case WumpusController.constants.gold:
         icon = 'fa fa-gem';
         break;
-      case WumpusManager.constants.question:
+      case WumpusController.constants.question:
         icon = 'fas fa-question-circle';
         break;
-      case WumpusManager.constants.arrow:
-        icon = 'fas fa-bullseye';
-        break;
-        case WumpusManager.constants.crossbones:
+      case WumpusController.constants.crossbones:
         icon = 'fas fa-skull-crossbones';
         break;
-      case WumpusManager.constants.breeze:
+      case WumpusController.constants.breeze:
         icon = 'fas fa-water';
         break;
       default:
@@ -144,14 +132,14 @@ const WumpusManager = {
     let indicator = null;
 
     switch (type) {
-      case WumpusManager.constants.breeze:
-        indicator = { icon: WumpusManager.icon(WumpusManager.constants.breeze), color: 'blue' };
+      case WumpusController.constants.breeze:
+        indicator = { icon: WumpusController.icon(WumpusController.constants.breeze), color: 'blue' };
         break;
-      case WumpusManager.constants.stench:
-        indicator = { icon: WumpusManager.icon(WumpusManager.constants.crossbones), color: 'darkred' };
+      case WumpusController.constants.stench:
+        indicator = { icon: WumpusController.icon(WumpusController.constants.crossbones), color: 'darkred' };
         break;
-      case WumpusManager.constants.glitter:
-        indicator = { icon: WumpusManager.icon(WumpusManager.constants.gold), color: 'gold' };
+      case WumpusController.constants.glitter:
+        indicator = { icon: WumpusController.icon(WumpusController.constants.gold), color: 'gold' };
         break;
       default:
         break;

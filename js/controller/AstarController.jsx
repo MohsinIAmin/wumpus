@@ -1,4 +1,4 @@
-const AStarManager = {
+const AstarController = {
     init: function(grid) {
         for(var y = 0, yl = grid.length; y < yl; y++) {
             for(var x = 0, xl = grid[y].length; x < xl; x++) {
@@ -21,11 +21,11 @@ const AStarManager = {
     },
 
     search: function(grid, start, end, isBlockFunc, diagonal, heuristic) {
-        AStarManager.init(grid);
-        heuristic = heuristic || AStarManager.manhattan;
+        AstarController.init(grid);
+        heuristic = heuristic || AstarController.manhattan;
         diagonal = !!diagonal;
 
-        var openHeap = AStarManager.heap();
+        var openHeap = AstarController.heap();
 
         openHeap.push(start);
 
@@ -49,7 +49,7 @@ const AStarManager = {
             currentNode.closed = true;
 
             // Find all neighbors for the current node. Optionally find diagonal neighbors as well (false by default).
-            var neighbors = AStarManager.neighbors(grid, currentNode, diagonal);
+            var neighbors = AstarController.neighbors(grid, currentNode, diagonal);
 
             for(var i=0, il = neighbors.length; i < il; i++) {
                 var neighbor = neighbors[i];

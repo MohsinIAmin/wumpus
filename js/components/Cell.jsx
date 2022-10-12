@@ -1,12 +1,10 @@
 class Cell extends React.Component {
   constructor(props) {
     super(props);
-
     this.onClick = this.onClick.bind(this);
   }
 
   onClick(e) {
-    // Callback handler for cell click event.
     this.props.onClick(this, this.props.x, this.props.y);
   }
 

@@ -1,4 +1,4 @@
-const GameManager = {
+const GameController = {
   isValidMove: (x, y, playerX, playerY, width, height) => {
     let isValid = false;
 
@@ -17,10 +17,10 @@ const GameManager = {
     // Returns all valid moves from x, y.
     const moves = [];
 
-    GameManager.isValidMove(x, y - 1, x, y, width, height) && moves.push({ x, y: y - 1 });
-    GameManager.isValidMove(x + 1, y, x, y, width, height) && moves.push({ x: x + 1, y });
-    GameManager.isValidMove(x, y + 1, x, y, width, height) && moves.push({ x, y: y + 1 });
-    GameManager.isValidMove(x - 1, y, x, y, width, height) && moves.push({ x: x - 1, y });
+    GameController.isValidMove(x, y - 1, x, y, width, height) && moves.push({ x, y: y - 1 });
+    GameController.isValidMove(x + 1, y, x, y, width, height) && moves.push({ x: x + 1, y });
+    GameController.isValidMove(x, y + 1, x, y, width, height) && moves.push({ x, y: y + 1 });
+    GameController.isValidMove(x - 1, y, x, y, width, height) && moves.push({ x: x - 1, y });
 
     return moves;
   },

@@ -4,7 +4,6 @@ class Entity extends React.Component {
   }
 
   offset() {
-    // Adjust offset to position icon on grid.
     let left = 25;
     let top = 5;
     const container = $('#app');
