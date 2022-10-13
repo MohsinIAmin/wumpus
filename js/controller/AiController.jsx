@@ -125,7 +125,7 @@ const AiController = {
       }
 
       closestSafeRooms.sort((a, b) => {
-        return (a.visited - b.visited);
+        return (b.visited - a.visited);
       });
 
       const originalSafeRooms = Object.assign([], closestSafeRooms);
@@ -160,7 +160,7 @@ const AiController = {
     }
 
     if (!room) {
-      room = rooms.sort((a, b) => { return a.knowledge.visited - b.knowledge.visited; })[0];
+      room = rooms.sort((a, b) => { return b.knowledge.visited - a.knowledge.visited; })[0];
     }
     return room;
   },
