@@ -5,9 +5,8 @@ class GameBoard extends React.Component {
     this.state = {
       width: props.width || 10,
       height: props.height || 10,
-      arrows: 1,
       reset: 0,
-      cheat: false,
+      cheat: true,
     };
 
     this.game = React.createRef();
