@@ -1,8 +1,6 @@
 const GameController = {
   isValidMove: (x, y, playerX, playerY, width, height) => {
     let isValid = false;
-
-    // Valid moves are adjacent squares, no diagonals.
     if (x >= 0 && x < width && y >= 0 && y < height) {
       const distance = Math.abs(x - playerX) + Math.abs(y - playerY);
       if (distance === 1 && (x !== playerX || y !== playerY)) {
@@ -14,7 +12,6 @@ const GameController = {
   },
 
   moves: (x, y, width, height) => {
-    // Returns all valid moves from x, y.
     const moves = [];
 
     GameController.isValidMove(x, y - 1, x, y, width, height) && moves.push({ x, y: y - 1 });
@@ -26,7 +23,6 @@ const GameController = {
   },
 
   direction(a, b) {
-    // Calculates the direction of object b with respect to object a.
     let direction;
     if (a.x === b.x) {
       direction = b.y > a.y ? 'down' : 'up';

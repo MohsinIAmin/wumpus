@@ -181,7 +181,7 @@ class Game extends React.Component {
     ))];
 
     return (
-      <Entity width="50" height="50" x={x} y={y} cellStyle={`player fas fa-female ${this.state.gameOver ? 'fade' : ''}`} color="deeppink">
+      <Entity width="50" height="50" x={x} y={y} cellStyle={`player fas fa-male ${this.state.gameOver ? 'fade' : ''}`} color="deeppink">
         {
           !this.state.gameOver &&
           <div class="percept-container">

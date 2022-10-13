@@ -20,7 +20,6 @@ const WumpusController = {
     let gold = { x: 0, y: height - 1 };
     let attempts;
 
-    // Choose location for the gold (not on the player starting location).
     attempts = 0;
     while (gold.x === 0 && gold.y === height - 1 && attempts++ < 1000) {
       gold = { x: Math.floor(Math.random() * (width - 1)), y: Math.floor(Math.random() * (height - 1)) };
@@ -32,7 +31,6 @@ const WumpusController = {
       throw new Error(msg)
     }
 
-    // Choose location for the wumpus (not on the player starting location, not the gold).
     attempts = 0;
     while (((wumpus.x === 0 && wumpus.y === height - 1) || (wumpus.x === gold.x && wumpus.y === gold.y)) && attempts++ < 1000) {
       wumpus = { x: Math.floor(Math.random() * (width - 1)), y: Math.floor(Math.random() * (height - 1)) };
@@ -49,15 +47,12 @@ const WumpusController = {
 
       for (let x = 0; x < width; x++) {
         if (x === wumpus.x && y === wumpus.y) {
-          // Wumpus room.
           cols[x] = [WumpusController.constants.wumpus];
         }
         else if (x === gold.x && y === gold.y) {
-          // Gold room.
           cols[x] = [WumpusController.constants.gold];
         }
         else if (x !== 0 && y !== height - 1) {
-          // Pit room (not on the player starting location).
           const isPit = Math.random() <= 0.2;
           cols[x] = [isPit ? WumpusController.constants.pit : WumpusController.constants.clear];
           isPit && pits.push({ x, y });
@@ -69,6 +64,33 @@ const WumpusController = {
 
       rows[y] = cols;
     }
+    
+    const row = [];
+    row[0] = [[0],[0],[0],[0],[0],[0],[0],[0],[0],[0]];
+    row[1] = [[0],[0],[0],[0],[0],[0],[0],[0],[0],[2]];
+    row[2] = [[0],[0],[0],[0],[0],[0],[0],[0],[0],[1]];
+    row[3] = [[0],[0],[0],[0],[0],[0],[0],[0],[0],[0]];
+    row[4] = [[0],[0],[0],[0],[0],[0],[0],[0],[0],[1]];
+    row[5] = [[0],[0],[0],[0],[0],[0],[0],[0],[0],[0]];
+    row[6] = [[0],[0],[0],[0],[0],[0],[0],[0],[0],[2]];
+    row[7] = [[0],[0],[0],[0],[0],[0],[0],[0],[0],[0]];
+    row[8] = [[0],[0],[0],[0],[0],[0],[0],[0],[0],[3]];
+    row[9] = [[0],[0],[0],[0],[0],[0],[0],[0],[0],[0]];
+
+    const pits1 = [];
+    pits1.push( { x:4, y:9} );
+    pits1.push({x:2,y:9});
+
+    const wumpus1 = {x:5,y:9};
+    const gold1 = {x:1,y:9};
+
+    // pits1.forEach(pit => {
+    //   WumpusController.addHint(pit, WumpusController.constants.breeze, row, width, height);
+    // });
+    // WumpusController.addHint(wumpus1, WumpusController.constants.stench, row, width, height);
+    // WumpusController.addHint(gold1, WumpusController.constants.glitter, row, width, height);
+    // console.log(row);
+    // return { map: row, gold, wumpus };
 
     pits.forEach(pit => {
       WumpusController.addHint(pit, WumpusController.constants.breeze, rows, width, height);
@@ -76,6 +98,8 @@ const WumpusController = {
     WumpusController.addHint(wumpus, WumpusController.constants.stench, rows, width, height);
     WumpusController.addHint(gold, WumpusController.constants.glitter, rows, width, height);
 
+    console.log(rows);
+    
     return { map: rows, gold, wumpus };
   },
 
